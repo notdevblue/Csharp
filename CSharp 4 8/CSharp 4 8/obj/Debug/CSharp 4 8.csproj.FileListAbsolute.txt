@@ -1,0 +1,7 @@
+C:\Users\USER-001\source\repos\CSharp 4 8\CSharp 4 8\bin\Debug\CSharp 4 8.exe.config
+C:\Users\USER-001\source\repos\CSharp 4 8\CSharp 4 8\bin\Debug\CSharp 4 8.exe
+C:\Users\USER-001\source\repos\CSharp 4 8\CSharp 4 8\bin\Debug\CSharp 4 8.pdb
+C:\Users\USER-001\source\repos\CSharp 4 8\CSharp 4 8\obj\Debug\CSharp 4 8.csprojAssemblyReference.cache
+C:\Users\USER-001\source\repos\CSharp 4 8\CSharp 4 8\obj\Debug\CSharp 4 8.csproj.CoreCompileInputs.cache
+C:\Users\USER-001\source\repos\CSharp 4 8\CSharp 4 8\obj\Debug\CSharp 4 8.exe
+C:\Users\USER-001\source\repos\CSharp 4 8\CSharp 4 8\obj\Debug\CSharp 4 8.pdb
