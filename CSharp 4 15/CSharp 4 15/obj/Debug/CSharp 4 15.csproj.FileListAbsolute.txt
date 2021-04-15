@@ -1,0 +1,7 @@
+C:\Users\USER-001\source\repos\notdevblue\Csharp\CSharp 4 15\CSharp 4 15\CSharp 4 15\bin\Debug\CSharp 4 15.exe.config
+C:\Users\USER-001\source\repos\notdevblue\Csharp\CSharp 4 15\CSharp 4 15\CSharp 4 15\bin\Debug\CSharp 4 15.exe
+C:\Users\USER-001\source\repos\notdevblue\Csharp\CSharp 4 15\CSharp 4 15\CSharp 4 15\bin\Debug\CSharp 4 15.pdb
+C:\Users\USER-001\source\repos\notdevblue\Csharp\CSharp 4 15\CSharp 4 15\CSharp 4 15\obj\Debug\CSharp 4 15.csprojAssemblyReference.cache
+C:\Users\USER-001\source\repos\notdevblue\Csharp\CSharp 4 15\CSharp 4 15\CSharp 4 15\obj\Debug\CSharp 4 15.csproj.CoreCompileInputs.cache
+C:\Users\USER-001\source\repos\notdevblue\Csharp\CSharp 4 15\CSharp 4 15\CSharp 4 15\obj\Debug\CSharp 4 15.exe
+C:\Users\USER-001\source\repos\notdevblue\Csharp\CSharp 4 15\CSharp 4 15\CSharp 4 15\obj\Debug\CSharp 4 15.pdb
