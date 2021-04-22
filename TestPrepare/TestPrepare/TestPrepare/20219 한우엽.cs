@@ -6,10 +6,22 @@ using System.Threading.Tasks;
 
 namespace TestPrepare
 {
+    //class Car
+    //{
+    //    public int carNumber;
+    //    int inTime;
+    //    int outTime;
+    //    public void SetInTime(int a)
+    //    {
+    //        inTime = a;
+    //    }
+    //}
+ 
     class Program
     {
         static void Main(string[] args)
         {
+            #region 연습문제
             #region 1번
             //int grade = int.Parse(Console.ReadLine());
             //switch (grade)
@@ -65,12 +77,16 @@ namespace TestPrepare
             //}
             #endregion
             #region 7번
-            //string input = "";
-            //input = Console.ReadLine();
             //List<string> list = new List<string>();
-            //list.Add(input);
-            //list.Sort();
-            //string[] asdf = list.ToArray();
+            //while(true)
+            //{
+            //    list.Add(Console.ReadLine());
+            //    list.Sort();
+            //    foreach (var item in list)
+            //    {
+            //        Console.WriteLine(item);
+            //    }
+            //}
             #endregion // 다음에
             #region 8번
             //bool isOK = false;
@@ -151,26 +167,52 @@ namespace TestPrepare
             // 0  0  0. 0 0 0. 0 0 0. 0 0 0
             // 11 10 9  8 7 6  5 4 3  2 1 0
 
-            string ipInput = Console.ReadLine();
+            //string ipInput = Console.ReadLine();
 
-            string[] ipSplit = ipInput.Split('.');
-            byte[] ipaddr = new byte[4];
+            //string[] ipSplit = ipInput.Split('.');
+            //byte[] ipaddr = new byte[4];
+
+            //for (int i = 0; i < ipSplit.Length; ++i)
+            //{
+            //    ipaddr[i] = byte.Parse(ipSplit[i]);
+            //}
+
+            //uint ip = 0;
+            //ip |= (uint)ipaddr[0] << 24;
+            //ip |= (uint)ipaddr[1] << 16;
+            //ip |= (uint)ipaddr[2] << 8;
+            //ip |= ipaddr[3];
+            //Console.WriteLine(ip.ToString("X"));
 
 
-            for(int i = 0; i < ipSplit.Length; ++i)
-            {
-                ipaddr[i] = byte.Parse(ipSplit[i]);
-            }
+            #endregion
+            #endregion
 
+            #region 6교시
+            //Car car = new Car();
+            //car.carNumber = 10;
+            //Console.WriteLine(car.carNumber);
 
-            uint ip = 0;
-            ip |= (uint)ipaddr[0] << 24;
-            ip |= (uint)ipaddr[1] << 16;
-            ip |= (uint)ipaddr[2] << 8;
-            ip |= ipaddr[3];
-            Console.WriteLine(ip.ToString("X"));
-            
+            //Random rnd = new Random();
 
+            //Console.WriteLine(rnd.Next(0, 100));
+            //Console.WriteLine(rnd.NextDouble() * 100);
+            //Console.WriteLine(rnd.NextDouble() * 100);
+            //Console.WriteLine(rnd.NextDouble() * 100);
+
+            //List<int> list = new List<int>();
+            //list.Add(10);
+            //list.Add(13);
+            //list.Add(12);
+            //list.Add(9);
+            //list.Sort();
+
+            //Console.WriteLine(Math.Abs(-15415));
+            //Console.WriteLine(Math.Ceiling(154.15));
+            //Console.WriteLine(Math.Floor(154.15));
+            //Console.WriteLine(Math.Max(154, 15));
+            //Console.WriteLine(Math.Min(154, 15));
+            //Console.WriteLine(Math.Round(154.15));
             #endregion
         }
     }
