@@ -164,7 +164,7 @@ namespace Csharp_4_29
             /* 1
              * O
              * X
-             * 
+             * X
              * X
              * X
              * X?
@@ -172,16 +172,12 @@ namespace Csharp_4_29
              * 
              */
 
-            /* 2
-             * 왼쪽 인 오른쪽 클?
-             */
-
             /* 3
              * 3
              */
 
             /* 4
-             * 
+             * 4
              */
 
             //// 5
@@ -220,22 +216,22 @@ namespace Csharp_4_29
             //Console.WriteLine(person.pet[1].age);
 
 
-            Random random = new Random();
+            //Random random = new Random();
 
-            int randomNumber = random.Next(0, 1000);
+            //int randomNumber = random.Next(0, 1000);
 
-            while(true)
-            {
-                Console.Write("수를 입력하세요: ");
-                int input = int.Parse(Console.ReadLine());
-                if (input > randomNumber)
-                    Console.WriteLine($"{input} 보다 작습니다");
-                else if (input < randomNumber)
-                    Console.WriteLine($"{input} 보다 큽니다");
-                else
-                    break;
-            }
-            Console.WriteLine("정답입니다!");
+            //while(true)
+            //{
+            //    Console.Write("수를 입력하세요: ");
+            //    int input = int.Parse(Console.ReadLine());
+            //    if (input > randomNumber)
+            //        Console.WriteLine($"{input} 보다 작습니다");
+            //    else if (input < randomNumber)
+            //        Console.WriteLine($"{input} 보다 큽니다");
+            //    else
+            //        break;
+            //}
+            //Console.WriteLine("정답입니다!");
 
 
             #endregion
