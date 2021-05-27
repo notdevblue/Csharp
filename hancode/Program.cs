@@ -176,7 +176,7 @@ namespace hancode
 
             #endregion
 
-            Console.WriteLine("시작 프로젝트 설정 안 바꿈 :\");
+            Console.WriteLine("시작 프로젝트 설정 안 바꿈 :\\ ");
         }
 
         
