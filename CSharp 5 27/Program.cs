@@ -26,22 +26,60 @@ namespace CSharp_5_27
 
         //public static int number = 10;
 
-        class Animal
-        {
-            public virtual void Eat() { Console.WriteLine("냠냠 먹습니다."); }
-        }
-        class Dog : Animal
-        {
-            public override void Eat() { Console.WriteLine("강아지 사료를 먹습니다."); }
-        }
-        class Cat : Animal
-        {
-            public override void Eat() { Console.WriteLine("고양이 사료를 먹습니다"); }
-        }
+        //class Animal
+        //{
+        //    public virtual void Eat() { Console.WriteLine("냠냠 먹습니다."); }
+        //}
+        //class Dog : Animal
+        //{
+        //    public override void Eat() { Console.WriteLine("강아지 사료를 먹습니다."); }
+        //}
+        //class Dog : Animal
+        //{
+        //    public new void Eat() { Console.WriteLine("강아지 사료를 먹습니다."); } // 이러면 부모것이 실행이 됨
+        //}
+        //class Cat : Animal
+        //{
+        //    public override void Eat() { Console.WriteLine("고양이 사료를 먹습니다"); }
+        //}
+        //class Bird : Animal
+        //{
+        //    public override void Eat() { Console.WriteLine("새 사료를 먹습니다"); }
+        //}
+        //class Bird2 : Bird
+        //{
+        //    public override void Eat() { Console.WriteLine("Bird2 사료를 먹습니다"); }
+        //}
+
+        //sealed class Parent // <= 상속을 못하게 막음
+        //{
+            
+        //}
+
+        //abstract class GrandParent // <= 상속을 강제함 == new GrandParent() 가 불가능 (이거로 인스턴스 못함)
+        //{
+        //    public virtual void Foo() { Console.WriteLine("와센즈"); }
+        //}
+
+        //class Parent : GrandParent
+        //{
+        //    public override void Foo() { Console.WriteLine("와센즈"); }
+        //}
+
+        //class Child : Parent
+        //{
+        //    public sealed override void Foo() { Console.WriteLine("와센즈"); }
+        //}
+        
+        //class GrandChild : Child
+        //{
+        //    //public override void Foo() { Console.WriteLine("와센즈"); } // <= 불가능
+        //}
+
 
         #endregion
-        
-        
+
+
         static void Main(string[] args)
         {
             #region 4교시
@@ -66,16 +104,16 @@ namespace CSharp_5_27
             //(child as Parent).Method();
             // as 로 접근
 
-            List<Animal> list = new List<Animal>()
-            {
-                new Animal(), new Dog(), new Cat()
-            };
+            //List<Animal> list = new List<Animal>()
+            //{
+            //    new Animal(), new Dog()/*, new Cat(), new Bird(), new Bird2()*/
+            //};
 
-            foreach(var item in list)
-            {
-                item.Eat();
-            }
-            // 하이딩을 하면 var == Animal
+            //foreach(var item in list)
+            //{
+            //    item.Eat();
+            //}
+            // var == Animal
             // override 하면 override 한 거로 실행이 됨
             
             #endregion
