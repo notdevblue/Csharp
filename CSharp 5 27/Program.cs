@@ -53,7 +53,7 @@ namespace CSharp_5_27
 
         //sealed class Parent // <= 상속을 못하게 막음
         //{
-            
+
         //}
 
         //abstract class GrandParent // <= 상속을 강제함 == new GrandParent() 가 불가능 (이거로 인스턴스 못함)
@@ -70,7 +70,7 @@ namespace CSharp_5_27
         //{
         //    public sealed override void Foo() { Console.WriteLine("와센즈"); }
         //}
-        
+
         //class GrandChild : Child
         //{
         //    //public override void Foo() { Console.WriteLine("와센즈"); } // <= 불가능
@@ -78,7 +78,74 @@ namespace CSharp_5_27
 
 
         #endregion
+        #region 5교시
 
+        //abstract class Parent
+        //{
+        //    //public virtual void Foo() { Console.WriteLine("부모"); }
+        //    public abstract void Foo();
+        //}
+
+        //class Child : Parent
+        //{
+        //    //public override void Foo() { Console.WriteLine("자식"); }
+        //    public override void Foo() { Console.WriteLine("자식22"); }
+        //}
+
+        //class GrandChild : Child
+        //{
+        //    public override void Foo() { Console.WriteLine("자식2"); }
+        //}
+
+        //interface IParent
+        //{
+        //    void Method();
+        //}
+
+        //class Child : IParent
+        //{
+        //    public override void Method()
+        //    {
+
+        //    }
+        //}
+
+        //class Player
+        //{
+        //    public string name;
+        //    public int hp;
+        //    public virtual void Attack() { }
+        //}
+
+        //class Hero : Player
+        //{
+        //    public void Walk() { }
+        //    public override void Attack()
+        //    {
+        //        Console.WriteLine("Hero");
+        //    }
+        //}
+
+        //class Monster : Player
+        //{
+        //    public void Move() { }
+        //    public void Skill() { }
+        //    public override void Attack()
+        //    {
+        //        Console.WriteLine("Monster");
+        //    }
+        //}
+
+        //class Boss : Player
+        //{
+        //    public void SpecialSkill() { }
+        //    public override void Attack()
+        //    {
+        //        Console.WriteLine("Boss");
+        //    }
+        //}
+
+        #endregion
 
         static void Main(string[] args)
         {
@@ -115,7 +182,88 @@ namespace CSharp_5_27
             //}
             // var == Animal
             // override 하면 override 한 거로 실행이 됨
-            
+
+            #endregion
+            #region 5교시
+
+            //Parent a = new GrandChild();
+            //a.Foo();
+
+            //Parent a = new Parent(); // <= 에러
+            //Parent b = new GrandChild();
+
+            //Parent a = new Child();
+            //a.Foo();
+
+            //List<Player> playerList = new List<Player>() { new Hero(), new Monster(), new Boss() };
+            //foreach(var item in playerList)
+            //{
+            //    item.Attack();
+            //}
+
+            #endregion
+
+            #region 연습문제
+
+            /* 1번
+             * 1 상속
+             * 2 :
+             * 3 public, protected
+             * 4 private
+             * 5 
+             * 6 쉐도잉?
+             * 7 sealed
+             * 8 sealed
+             * 9 abstract
+             */
+
+            /* 2번
+             * 1 X
+             * 2 O
+             * 3 O
+             * 4 O
+             * 5
+             * 6 O
+             * 7 O
+             */
+
+            /* 3번
+             * 1
+             */
+
+            /* 4번
+             * 2 1 3
+             */
+
+            /* 5번
+             * 2
+             */
+
+            /* 6번
+             * 20
+             */
+
+            /* 7번
+             * (child as Parent).question 또는 ((Parent)child).question
+             */
+
+            /* 8번
+             * 20
+             */
+
+            /* 9번
+             * 20
+             */
+
+            /* 10번
+             * 20
+             */
+
+            /* 11번
+             * 20
+             */
+
+
             #endregion
         }
     }
