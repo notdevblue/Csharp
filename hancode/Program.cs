@@ -135,7 +135,7 @@ namespace hancode
             //string calc;
             //float result = 0;
 
-            
+
 
             //num1 = Console.ReadLine();
             //calc = Console.ReadLine();
@@ -164,18 +164,22 @@ namespace hancode
             //    case "*":
             //        result = float.Parse(num1) * float.Parse(num2);
             //        break;
-            
+
             //    default:
             //        Console.WriteLine("? 머임");
             //        break;
             //}
-            
+
             //Console.WriteLine(result.ToString("0.00"));
             //Console.WriteLine(string.Format("{0:X}", 1000));
 
 
             #endregion
+
+            Console.WriteLine("시작 프로젝트 설정 안 바꿈 :\\ ");
         }
+
+        
 
         //class ClassA
         //{
