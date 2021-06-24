@@ -13,7 +13,6 @@ namespace WinFormsTetris
 {
     public partial class Form1 : Form
     {
-        Diagram diagram;
         Game game;
         int bx;
         int by;
@@ -23,13 +22,12 @@ namespace WinFormsTetris
         public Form1()  //생성자
         {
             InitializeComponent();
+            originInterval = timer1.Interval;
         }
 
         private void Form1_Load(object sender, EventArgs e) //Start()
         {
-            diagram = new Diagram();
             game = Game.Singleton;
-            BackColor = Color.Black;
             bx = GameRule.BX;
             by = GameRule.BY;
             bwidth = GameRule.B_WIDTH;
@@ -39,6 +37,8 @@ namespace WinFormsTetris
 
         private void Form1_Paint(object sender, PaintEventArgs e) //Update()
         {
+            Score.Text = $"SCORE : {game.score}";
+
             DoubleBuffered = true;
             DrawGraduation(e.Graphics);
             DrawDiagram(e.Graphics);
@@ -54,29 +54,18 @@ namespace WinFormsTetris
                 case Keys.Up: MoveTurn(); return;
                 case Keys.Down: MoveDown(); return;
                 case Keys.Space: MoveSSDown(); return;
+                case Keys.T: Hold(); return;
             }
         }
 
-
+        int originInterval;
         private void timer1_Tick(object sender, EventArgs e)  //Update()
         {
+            int interval = originInterval - (Game.Singleton.score * 100);
+
+            timer1.Interval = interval < 250 ? 250 : interval;
             MoveDown();
-            IncreaseDownSpeed();
         }
-
-        private void IncreaseDownSpeed()
-        {
-            if (Game.Singleton.score != 0)
-            {
-                int newInterval = 1000 - (Game.Singleton.score * 50);
-                if(newInterval < 150)
-                {
-                    return;
-                }
-                timer1.Interval = newInterval;
-            }
-        }
-
 
         private void DrawBoard(Graphics graphics)
         {
@@ -86,17 +75,9 @@ namespace WinFormsTetris
                 {
                     if (game[xx, yy] != 0)
                     {
-                        Rectangle now_rt = new Rectangle(xx * bwidth + 2, yy * bheight + 2, bwidth - 4, bheight - 4);
-                        graphics.DrawRectangle(Pens.LightGray, now_rt);
-
-                        Brush brush = Board.boardColor[xx, yy] = BlockValue.bcolors[1];
-
-                        if (brush != null)
-                        {
-                            graphics.FillRectangle(brush, now_rt);// TODO : Null
-
-                        }
-                        //graphics.FillRectangle(BlockValue.bcolors[0], now_rt);
+                        Rectangle now_rt = new Rectangle(xx * (bwidth - 20) + 2, yy * bheight + 2, bwidth - 24, bheight - 4);
+                        graphics.DrawRectangle(Pens.White, now_rt);
+                        graphics.FillRectangle(Brushes.BlueViolet, now_rt); // TODO : Color
                     }
                 }
             }
@@ -107,7 +88,7 @@ namespace WinFormsTetris
             int bn = game.BlockNum;
             int tn = game.Turn;
             Point now = game.NowPosition;
-            Pen dpen = new Pen(Color.WhiteSmoke, 3);
+            Pen dpen = new Pen(Color.Red, 3);
 
             for (int xx = 0; xx < 4; xx++)
             {
@@ -115,7 +96,7 @@ namespace WinFormsTetris
                 {
                     if (BlockValue.bvals[bn, tn, xx, yy] != 0)
                     {
-                        Rectangle now_rt = new Rectangle((now.X + xx) * bwidth + 2, (now.Y + yy) * bheight + 2, bwidth - 4, bheight - 4);
+                        Rectangle now_rt = new Rectangle((now.X + xx) * (bwidth - 20) + 2, (now.Y + yy) * bheight + 2, bwidth - 24, bheight - 4);
                         graphics.DrawRectangle(dpen, now_rt);
                     }
                 }
@@ -135,11 +116,11 @@ namespace WinFormsTetris
 
             for (int cx = 0; cx < bx; cx++)
             {
-                st.X = cx * bwidth;
+                st.X = cx * (bwidth - 20); // TODO : SIZE
                 st.Y = 0;
                 et.X = st.X;
                 et.Y = by * bheight;
-                graphics.DrawLine(Pens.White, st, et);
+                graphics.DrawLine(Pens.DarkGray, st, et);
             }
         }
 
@@ -152,9 +133,9 @@ namespace WinFormsTetris
             {
                 st.X = 0;
                 st.Y = cy * bheight;
-                et.X = bx * bwidth;
+                et.X = bx * (bwidth - 20);
                 et.Y = cy * bheight;
-                graphics.DrawLine(Pens.White, st, et);
+                graphics.DrawLine(Pens.DarkGray, st, et);
             }
         }
 
@@ -208,6 +189,14 @@ namespace WinFormsTetris
             EndingCheck();
         }
 
+        private void Hold()
+        {
+            game.Hold();
+
+            Region rg = MakeRegion();
+            Invalidate(rg);
+        }
+
         private void EndingCheck()
         {
             if (game.Next())
@@ -218,7 +207,7 @@ namespace WinFormsTetris
             {
                 timer1.Enabled = false;
 
-                if (DialogResult.Yes == MessageBox.Show($"당신의 점수: {Game.Singleton.score}\r\n계속 하실건가요?", "계속 진행 확인 창", MessageBoxButtons.YesNo))
+                if (DialogResult.Yes == MessageBox.Show("계속 하실건가요?", "계속 진행 확인 창", MessageBoxButtons.YesNo))
                 {
                     game.ReStart();
                     timer1.Enabled = true;
@@ -285,5 +274,9 @@ namespace WinFormsTetris
             return region;
         }
 
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

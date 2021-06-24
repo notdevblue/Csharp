@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Drawing;
 using System.Collections.Generic;
 using System.Text;
 
@@ -17,17 +16,11 @@ namespace WinFormsTetris
         {
         }
 
-        int[,] board        = new int[GameRule.BX, GameRule.BY]; // TODO : 색 저장
-        public static Brush[,] boardColor   = new Brush[GameRule.BX, GameRule.BY];
+        int[,] board = new int[GameRule.BX, GameRule.BY];
 
         public int this[int x, int y]
         {
             get { return board[x, y]; }
-        }
-
-        static public Brush GetColor(int x, int y)
-        {
-            return boardColor[x, y];
         }
 
         public bool MoveEnable(int bn, int tn, int x, int y)
@@ -60,16 +53,7 @@ namespace WinFormsTetris
                 {
                     if (((x + xx) >= 0) && (x + xx < GameRule.BX) && (y + yy >= 0) && (y + yy < GameRule.BY))
                     {
-                        boardColor[x, y] = BlockValue.bcolors[bn]; // TODO : Changed, TODO : ERR
-                        try
-                        {
-                            board[x + xx, y + yy] += BlockValue.bvals[bn, turn, xx, yy];
-
-                        }
-                        catch
-                        {
-                            Debug.WriteLine($"{board[x + xx, y + yy]} Board");
-                        }
+                        board[x + xx, y + yy] += BlockValue.bvals[bn, turn, xx, yy];
                     }
                 }
             }
@@ -86,6 +70,7 @@ namespace WinFormsTetris
                     if (CheckLine(y - yy))
                     {
                         ++Game.Singleton.score;
+                        Debug.WriteLine(" TODO : 여기에 창 움직임 추가");
                         ClearLine(y - yy);
                         y++;
                     }
@@ -97,6 +82,7 @@ namespace WinFormsTetris
         {
             for (; y > 0; y--)
             {
+                
                 for (int xx = 0; xx < GameRule.BX; xx++)
                 {
                     board[xx, y] = board[xx, y - 1];
