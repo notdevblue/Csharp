@@ -10,7 +10,8 @@ namespace WinFormsTetris
         public int Y { get; private set; }
         public int Turn { get; private set; }
         public int BlockNum { get; private set; }
-
+        public int NextBlockNum { get; private set; }
+        public int HoldBlockNum { get; private set; }
         public Diagram()
         {
             SetBlockList();
@@ -29,6 +30,8 @@ namespace WinFormsTetris
             Y = GameRule.SY;
             Turn = rand.Next() % 4;
             BlockNum = blockList[turn++ % 7];
+            NextBlockNum = blockList[turn % 7];
+            
         }
 
         public void SetBlockList()

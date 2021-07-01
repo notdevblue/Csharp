@@ -9,6 +9,8 @@ namespace WinFormsTetris
     {        
         Board gboard = Board.GameBoard;
         Diagram now;
+        Diagram next;
+        Diagram preview;
 
         public int score = 0;
 
@@ -19,7 +21,13 @@ namespace WinFormsTetris
         public int BlockNum
         {
             get { return now.BlockNum; }
-        }
+        }        
+        public int NextBlockNum
+        {
+            get { return now.NextBlockNum; }
+        } 
+        
+        public int HoldBlockNum { get; private set; }
         public int Turn
         {
             get { return now.Turn; }
@@ -38,7 +46,10 @@ namespace WinFormsTetris
         }
         Game()
         {
+            HoldBlockNum = -1;
             now = new Diagram();
+            next = new Diagram();
+            preview = new Diagram();
         }
 
         public bool MoveLeft()
@@ -69,6 +80,16 @@ namespace WinFormsTetris
                 return true;
             }
             gboard.Store(now.BlockNum, Turn, now.X, now.Y); //보드 정보 갱신
+            return false;
+        }
+
+        public bool BottomBlock()
+        {
+            if (gboard.MoveEnable(now.BlockNum, Turn, now.X, now.Y + 1))
+            {
+                now.MoveDown();
+                return true;
+            }
             return false;
         }
 
@@ -111,6 +132,7 @@ namespace WinFormsTetris
 
                     Next();
                     temp = new Diagram();
+                    HoldBlockNum = holdBlock.BlockNum;
                     return;
                 }
 
@@ -121,6 +143,7 @@ namespace WinFormsTetris
                 now.Copy(temp);
             }
             isHold = !isHold;
+            HoldBlockNum = holdBlock.BlockNum;
         }
 
         public void ReStart()

@@ -70,7 +70,7 @@ namespace WinFormsTetris
                     if (CheckLine(y - yy))
                     {
                         ++Game.Singleton.score;
-                        Debug.WriteLine(" TODO : 여기에 창 움직임 추가");
+                        // TODO 창
                         ClearLine(y - yy);
                         y++;
                     }

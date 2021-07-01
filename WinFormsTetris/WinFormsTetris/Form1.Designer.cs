@@ -32,6 +32,8 @@ namespace WinFormsTetris
             this.components = new System.ComponentModel.Container();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.Score = new System.Windows.Forms.Label();
+            this.next = new System.Windows.Forms.Label();
+            this.holdText = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // timer1
@@ -43,18 +45,38 @@ namespace WinFormsTetris
             // Score
             // 
             this.Score.AutoSize = true;
-            this.Score.Location = new System.Drawing.Point(486, 59);
+            this.Score.Location = new System.Drawing.Point(397, 74);
             this.Score.Name = "Score";
             this.Score.Size = new System.Drawing.Size(37, 15);
             this.Score.TabIndex = 0;
             this.Score.Text = "Score";
             this.Score.Click += new System.EventHandler(this.label1_Click);
             // 
+            // next
+            // 
+            this.next.AutoSize = true;
+            this.next.Location = new System.Drawing.Point(397, 126);
+            this.next.Name = "next";
+            this.next.Size = new System.Drawing.Size(39, 15);
+            this.next.TabIndex = 1;
+            this.next.Text = "label1";
+            // 
+            // holdText
+            // 
+            this.holdText.AutoSize = true;
+            this.holdText.Location = new System.Drawing.Point(397, 245);
+            this.holdText.Name = "holdText";
+            this.holdText.Size = new System.Drawing.Size(39, 15);
+            this.holdText.TabIndex = 2;
+            this.holdText.Text = "label1";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(622, 338);
+            this.Controls.Add(this.holdText);
+            this.Controls.Add(this.next);
             this.Controls.Add(this.Score);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
@@ -71,6 +93,8 @@ namespace WinFormsTetris
 
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Label Score;
+        private System.Windows.Forms.Label next;
+        private System.Windows.Forms.Label holdText;
     }
 }
 

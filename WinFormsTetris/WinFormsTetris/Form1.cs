@@ -6,6 +6,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -19,11 +20,156 @@ namespace WinFormsTetris
         int bwidth;
         int bheight;
 
+        Thread t1;
         public Form1()  //생성자
         {
             InitializeComponent();
             originInterval = timer1.Interval;
+            StartPosition = FormStartPosition.Manual;
+            Location = new Point(600, 100);
+
+            t1 = new Thread(MoveWindow)
+            {
+                IsBackground = true
+            };
+
         }
+
+        float t = 0.0f;
+        bool isBottom = false;
+        object lockObj = new object();
+        void MoveWindow()
+        {
+            while (true)
+            {
+                if (stop) continue;
+                Thread.Sleep(1000 / 60);
+                WindowShake();
+                WindowDown();
+            }
+        }
+
+        int shakeEffectTime = 25;
+        int shakeAmount = 5;
+        int bottomT = 0;
+        bool stop = false;
+        int xPos = 0;
+        double sin = 0;
+        float posidx = 0.0f;
+        float showIdx = 0.0f;
+        bool noMove = false;
+        Point[] posarr = new Point[4] { new Point(0, 0), new Point(1300, 0), new Point(0, 410), new Point(1300, 410) };
+        private void WindowShake()
+        {
+            if (game.score % 6 == 2 && !isBottom)
+            {
+                lock (lockObj)
+                {
+                    noMove = false;
+                }
+                this.Invoke(new Action(delegate ()
+                {
+                    showIdx += 0.1f;
+                    if ((int)showIdx % 2 == 1)
+                    {
+                        xPos = 2000;
+                    }
+                    else
+                    {
+                        xPos = 600;
+                    }
+                    Location = new Point(xPos, (int)t);
+                    return;
+                }));
+            }
+            else if (game.score % 6 == 3 && !isBottom)
+            {
+                lock (lockObj)
+                {
+                    noMove = false;
+                }
+                this.Invoke(new Action(delegate ()
+                {
+                    xPos = (int)((Math.Sin(sin) + 1) * 250) + 250;
+                    Debug.WriteLine(xPos);
+                    Location = new Point(xPos, (int)t);
+                    sin += 0.05;
+
+                }));
+
+                return;
+            }
+            else if (game.score % 6 == 4 && !isBottom)
+            {
+                lock (lockObj)
+                {
+                    noMove = true;
+                }
+
+                this.Invoke(new Action(delegate ()
+                {
+                    xPos = posarr[(int)posidx % 4].X;
+                    Location = posarr[(int)posidx % 4];
+                    posidx += 0.01f;
+                }));
+                return;
+            }
+            else if (game.score % 6 == 5 & !isBottom)
+            {
+                lock (lockObj)
+                {
+                    noMove = true;
+                }
+
+                xPos = (int)((Math.Sin(sin) + 1) * 250) + 250;
+                t = (float)((Math.Cos(sin) + 1) * 100) + 100;
+                sin += 0.05;
+
+                this.Invoke(new Action(delegate ()
+                {
+                    Location = new Point(xPos + 150, (int)t);
+                }));
+                return;
+
+            }
+            else if (!isBottom)
+            {
+                lock (lockObj)
+                {
+                    noMove = false;
+                }
+                xPos = 600;
+            }
+
+            if (isBottom)
+            {
+                this.Invoke(new Action(delegate ()
+                {
+                    Location = new Point(xPos - shakeAmount, bottomT);
+                    Thread.Sleep(shakeEffectTime);
+                    Location = new Point(xPos + shakeAmount, bottomT);
+                    Thread.Sleep(shakeEffectTime);
+                }));
+
+                isBottom = false;
+            }
+        }
+
+        private void WindowDown()
+        {
+
+            if (noMove) return;
+
+            lock (lockObj)
+            {
+                t += (game.score + 0.5f) / 3.0f;
+            }
+            this.Invoke(new Action(delegate ()
+            {
+                Location = new Point(xPos, (int)t);
+            }));
+        }
+
 
         private void Form1_Load(object sender, EventArgs e) //Start()
         {
@@ -33,14 +179,22 @@ namespace WinFormsTetris
             bwidth = GameRule.B_WIDTH;
             bheight = GameRule.B_HEIGHT;
             this.SetClientSizeCore(GameRule.BX * GameRule.B_WIDTH, GameRule.BY * GameRule.B_HEIGHT);
+            t1.Start();
         }
 
+        
         private void Form1_Paint(object sender, PaintEventArgs e) //Update()
         {
             Score.Text = $"SCORE : {game.score}";
+            next.Text = "NEXT";
+            holdText.Text = "HOLD (T)";
+
+            
 
             DoubleBuffered = true;
             DrawGraduation(e.Graphics);
+            NextDrawDiagram(e.Graphics);
+            HoldDrawDiagram(e.Graphics);
             DrawDiagram(e.Graphics);
             DrawBoard(e.Graphics);
         }
@@ -78,6 +232,49 @@ namespace WinFormsTetris
                         Rectangle now_rt = new Rectangle(xx * (bwidth - 20) + 2, yy * bheight + 2, bwidth - 24, bheight - 4);
                         graphics.DrawRectangle(Pens.White, now_rt);
                         graphics.FillRectangle(Brushes.BlueViolet, now_rt); // TODO : Color
+                    }
+                }
+            }
+        }
+
+        private void HoldDrawDiagram(Graphics graphics)
+        {
+            int bn = game.HoldBlockNum;
+            if (bn == -1) return;
+
+            Debug.WriteLine(bn);
+            int tn = 0;
+            Point now = new Point(14, 7);
+
+            for (int xx = 0; xx < 4; xx++)
+            {
+                for (int yy = 0; yy < 4; yy++)
+                {
+                    if (BlockValue.bvals[bn, tn, xx, yy] != 0)
+                    {
+                        Rectangle now_rt = new Rectangle((now.X + xx) * (bwidth - 20) + 2, (now.Y + yy) * bheight + 2, bwidth - 24, bheight - 4);
+                        graphics.DrawRectangle(Pens.Black, now_rt);
+                        graphics.FillRectangle(Brushes.BlueViolet, now_rt);
+                    }
+                }
+            }
+        }
+        
+        private void NextDrawDiagram(Graphics graphics)
+        {
+            int bn = game.NextBlockNum;
+            int tn = 0;
+            Point now = new Point(14, 3);
+
+            for (int xx = 0; xx < 4; xx++)
+            {
+                for (int yy = 0; yy < 4; yy++)
+                {
+                    if (BlockValue.bvals[bn, tn, xx, yy] != 0)
+                    {
+                        Rectangle now_rt = new Rectangle((now.X + xx) * (bwidth - 20) + 2, (now.Y + yy) * bheight + 2, bwidth - 24, bheight - 4);
+                        graphics.DrawRectangle(Pens.Black, now_rt);
+                        graphics.FillRectangle(Brushes.BlueViolet, now_rt);
                     }
                 }
             }
@@ -168,6 +365,7 @@ namespace WinFormsTetris
 
         private void MoveDown()
         {
+            
             if (game.MoveDown())
             {
                 Region rg = MakeRegion(0, -1);
@@ -177,6 +375,7 @@ namespace WinFormsTetris
             {
                 EndingCheck();
             }
+            
         }
 
         private void MoveSSDown()
@@ -189,9 +388,17 @@ namespace WinFormsTetris
             EndingCheck();
         }
 
+        bool holded = false;
         private void Hold()
         {
+            if (holded) return;
+            holded = true;
             game.Hold();
+
+            lock (lockObj)
+            {
+                t = 0;
+            }
 
             Region rg = MakeRegion();
             Invalidate(rg);
@@ -202,13 +409,29 @@ namespace WinFormsTetris
             if (game.Next())
             {
                 Invalidate(); //전체 영역 갱신
+                holded = false;
+                lock(lockObj)
+                {
+                    bottomT = (int)t;
+                    t = 0;
+                    isBottom = true;
+                }
             }
             else
             {
                 timer1.Enabled = false;
-
-                if (DialogResult.Yes == MessageBox.Show("계속 하실건가요?", "계속 진행 확인 창", MessageBoxButtons.YesNo))
+                lock (lockObj)
                 {
+                    stop = true;
+                }
+
+                if (DialogResult.Yes == MessageBox.Show($"당신의 인내심 점수: {game.score}\r\n계속 하실건가요?", "계속 진행 확인 창", MessageBoxButtons.YesNo))
+                {
+                    lock (lockObj)
+                    {
+                        stop = false;
+                    }
+
                     game.ReStart();
                     timer1.Enabled = true;
                     Invalidate();
