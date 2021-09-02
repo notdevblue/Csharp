@@ -36,7 +36,7 @@ namespace CSharp_9_2
 
 
 
-        static void Main(string[] args)
+        static void Main2(string[] args)
         {
             // Member[] members = new Member[3];
             // members[0] = new Member("홍길동", "율도국");
@@ -78,20 +78,20 @@ namespace CSharp_9_2
             //     System.Console.WriteLine("입력위치의 값은 " + arr[input] + " 입니다.");
             // }
 
-            string[] arr ={"가", "나"};
-            System.Console.WriteLine("숫자를 입력해주세요");
+            // string[] arr ={"가", "나"};
+            // System.Console.WriteLine("숫자를 입력해주세요");
 
-            try
-            {
-                int input = int.Parse(Console.ReadLine());
-                System.Console.WriteLine("입력위치의 값은 " + arr[input] + " 입니다.");
-            }
-            catch(Exception e)
-            {
-                System.Console.WriteLine("예외가 발생했어요.");
-                System.Console.WriteLine(e.Message); // 예외의 내용을 출력. e 는 예외 전체가 나온다. 흠흠
-                System.Console.WriteLine(e.StackTrace); // 경로를 추적함 
-            }
+            // try
+            // {
+            //     int input = int.Parse(Console.ReadLine());
+            //     System.Console.WriteLine("입력위치의 값은 " + arr[input] + " 입니다.");
+            // }
+            // catch(Exception e)
+            // {
+            //     System.Console.WriteLine("예외가 발생했어요.");
+            //     System.Console.WriteLine(e.Message); // 예외의 내용을 출력. e 는 예외 전체가 나온다. 흠흠
+            //     System.Console.WriteLine(e.StackTrace); // 경로를 추적함 
+            // }
 
         }
     }
